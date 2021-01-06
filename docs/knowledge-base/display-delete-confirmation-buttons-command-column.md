@@ -94,14 +94,15 @@ The following example demonstrates how to render the delete confirmation for a G
               { field: "Discontinued", width: "120px" },
               { command: ["edit", {
                 name: "myDelete",
-                text: "Delete"
+                text: "&nbsp;"
               }], title: "&nbsp;", width: "350px" }],
             editable: {
               mode: "inline",
               confirmation: false
             },
             dataBound: function() {
-              $(".k-grid-myDelete span").addClass("k-icon k-delete");
+              // $(".k-grid-myDelete span").addClass("k-icon k-delete"); //Rick: this does not change the icon
+               $("a.k-grid-myDelete").append('<span class="k-icon k-i-trash"></span>Delete'); // Rick: change the icon too.
             },
             cancel: function() {
               setTimeout(function(){
@@ -117,8 +118,12 @@ The following example demonstrates how to render the delete confirmation for a G
             var cell = command.closest("td");
 
             command.remove();
-            cell.append('<a class="k-button k-button-icontext k-grid-myConfirm" href="#"><span class="k-icon k-update"></span>Confirm</a>');
-            cell.append('<a class="k-button k-button-icontext k-grid-myCancel" href="#"><span class="k-icon k-cancel"></span>Cancel</a>');
+            
+            // Rick:  fix the icons so everything looks like Kendo.
+            cell.append('<a class="k-button k-button-icontext k-grid-myConfirm" href="#"><span class="k-icon k-i-check"></span>Confirm</a>');
+            cell.append('<a class="k-button k-button-icontext k-grid-myCancel" href="#"><span class="k-icon k-i-cancel"></span>Cancel</a>');
+            //cell.append('<a class="k-button k-button-icontext k-grid-myConfirm" href="#"><span class="k-icon k-update"></span>Confirm</a>');
+           // cell.append('<a class="k-button k-button-icontext k-grid-myCancel" href="#"><span class="k-icon k-cancel"></span>Cancel</a>');
           });
 
           $("#grid").on("click", ".k-grid-myConfirm", function(e){
